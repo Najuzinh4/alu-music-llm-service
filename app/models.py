@@ -4,6 +4,7 @@ import uuid
 
 db = SQLAlchemy()
 
+
 class Comentario(db.Model):
     __tablename__ = "comentarios"
 
@@ -13,3 +14,4 @@ class Comentario(db.Model):
     tags_funcionalidades = db.Column(db.JSON, nullable=True)
     confianca = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
