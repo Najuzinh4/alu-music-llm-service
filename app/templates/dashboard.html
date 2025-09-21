@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AluMusic • Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Comentários Classificados</h1>
+        <nav>
+          <a href="/dashboard/logout">Sair</a>
+        </nav>
+      </header>
+
+      <form class="filters" method="get">
+        <input type="text" name="q" placeholder="Buscar texto…" value="{{ params.q }}" />
+        <select name="categoria">
+          <option value="">Todas categorias</option>
+          {% for c in categorias %}
+          <option value="{{ c }}" {% if params.categoria==c %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+        <label>De</label>
+        <input type="datetime-local" name="start" value="{{ params.start }}" />
+        <label>Até</label>
+        <input type="datetime-local" name="end" value="{{ params.end }}" />
+        <button type="submit">Filtrar</button>
+        <a class="button" href="/dashboard/export?{{ request.query_string.decode('utf-8') }}">Exportar CSV</a>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Confiança</th>
+            <th>Tags</th>
+            <th>Texto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in comentarios %}
+          <tr>
+            <td>{{ r.created_at }}</td>
+            <td>{{ r.categoria }}</td>
+            <td>{{ '%.2f'|format(r.confianca or 0) }}</td>
+            <td>
+              {% if r.tags_funcionalidades %}
+                {% for t in r.tags_funcionalidades %}
+                  <span class="tag">{{ t.code }}</span>
+                {% endfor %}
+              {% endif %}
+            </td>
+            <td class="texto">{{ r.texto }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  </html>
+
