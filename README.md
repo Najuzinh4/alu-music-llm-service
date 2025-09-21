@@ -12,7 +12,7 @@ Como rodar (Docker)
 - Variáveis (opcional): DATABASE_URL, JWT_SECRET_KEY, SECRET_KEY
 
 Endpoints
-- POST /auth/login → retorna JWT (admin/123 para dev)
+- POST /auth/login → retorna JWT (admin/secret para dev)
 - POST /api/comentarios (JWT) → ingere e classifica (lote ou unitário)
 - GET/POST /dashboard/login → login de sessão
 - GET /dashboard → lista com filtros e export CSV
