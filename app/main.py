@@ -20,6 +20,12 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
 
+    # opcional: redirecionar raiz para /dashboard/login
+    @app.route("/")
+    def root():
+        from flask import redirect
+        return redirect("/dashboard/login")
+
     with app.app_context():
         connected = False
         for _ in range(5):  #va i tenta 5 vezes
