@@ -2,3 +2,10 @@ flask
 flask_sqlalchemy
 flask_jwt_extended
 psycopg2-binary
+alembic
+flask-caching
+scikit-learn
+pandas
+pytest
+pytest-flask
+faker
