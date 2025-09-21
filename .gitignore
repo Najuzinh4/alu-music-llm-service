@@ -34,7 +34,6 @@ dist/
 build/
 node_modules/
 .npmrc
-frontend/package-lock.json
 app/static/ui/
 
 # Logs
