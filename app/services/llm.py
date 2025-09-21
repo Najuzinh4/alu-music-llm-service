@@ -86,3 +86,27 @@ def classificar_texto(texto: str) -> dict:
         "confianca": confianca,
     }
 
+
+def responder_insight(contexto: str, pergunta: str, max_palavras: int = 150) -> str:
+    """
+    Geração simples de resposta baseada em contexto. Placeholder sem LLM real.
+    Limita aproximadamente o número de palavras.
+    """
+    #a heurística: responde em 2-3 frases com base em palavras-chave da pergunta
+    p = pergunta.lower()
+    if "tend" in p or "trend" in p:
+        base = "Principais tendências observadas nas últimas semanas incluem variações nas categorias e menções frequentes a tags específicas. "
+    elif "crítica" in p or "critica" in p:
+        base = "As críticas apresentaram oscilações, com picos associados a lançamentos e discussões sobre produção e letras. "
+    elif "elogio" in p:
+        base = "Os elogios se concentraram em produção, performance ao vivo e faixas específicas que repercutiram positivamente. "
+    else:
+        base = "Com base nos resumos recentes, identificamos padrões relevantes em categorias e tags, refletindo o sentimento do público. "
+
+    resumo = (contexto or "").strip().replace("\n", " ")
+    texto = (base + resumo)
+    palavras = texto.split()
+    if len(palavras) > max_palavras:
+        palavras = palavras[:max_palavras]
+        texto = " ".join(palavras) + "…"
+    return texto
