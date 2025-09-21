@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
+from flask_caching import Cache
 from app.config import Config
 from app.models import db
 from app.routes import api_bp
 from app.auth import auth_bp
 from app.dashboard import dashboard_bp
+from app.reports import reports_bp
+from app.insights import insights_bp
 import time
 from sqlalchemy.exc import OperationalError
 
@@ -15,12 +18,14 @@ def create_app():
 
     db.init_app(app)
     JWTManager(app)
+    Cache(app)
 
     app.register_blueprint(api_bp, url_prefix="/api")
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
+    app.register_blueprint(reports_bp, url_prefix="")
+    app.register_blueprint(insights_bp, url_prefix="/insights")
 
-    # opcional: redirecionar raiz para /dashboard/login
     @app.route("/")
     def root():
         from flask import redirect
@@ -28,7 +33,7 @@ def create_app():
 
     with app.app_context():
         connected = False
-        for _ in range(5):  #va i tenta 5 vezes
+        for _ in range(5):  # tenta 5 vezes
             try:
                 db.create_all()
                 connected = True
