@@ -9,3 +9,4 @@ pandas
 pytest
 pytest-flask
 faker
+matplotlib
