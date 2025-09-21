@@ -32,6 +32,8 @@ coverage.xml
 # Build artifacts
 dist/
 build/
+node_modules/
+.npmrc
 
 # Logs
 logs/
@@ -42,4 +44,3 @@ logs/
 .idea/
 .vscode/
 .ipynb_checkpoints/
-
