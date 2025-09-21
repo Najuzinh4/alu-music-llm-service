@@ -13,21 +13,21 @@ def _normalize(text: str) -> str:
 def _detect_category(text: str) -> Tuple[str, float]:
     t = _normalize(text)
 
-    spam_kw = ["http://", "https://", "promo", "ganhe", "siga", "desconto", "cupom"]
+    spam_kw = ["http://", "https://", "promo", "ganhe", "siga", "desconto", "cupom","clique", "visite", "link", "grátis", "gratis", "oferta", "promoção", "promocao", "compre", "comprar", "venda", "vender"]
     if any(k in t for k in spam_kw):
         return "SPAM", 0.95
 
-    if "?" in t or any(k in t for k in ["como", "quando", "onde", "por que", "pq"]):
+    if "?" in t or any(k in t for k in ["como", "quando", "onde", "por que", "pq"," qual", "quais", "alguém", "alguem", "poderia", "gostaria de saber", "dúvida", "duvida", "não entendi", "nao entendi", "explica", "explicar"]):
         return "DÚVIDA", 0.9
 
-    if "sugest" in t or any(k in t for k in ["poderia", "seria legal", "deveria"]):
+    if "sugest" in t or any(k in t for k in ["poderia", "seria legal", "deveria", "gostaria", "gostaria que", "acho que", "seria bom", "sugiro", "sugestão", "sugestao"]):
         return "SUGESTÃO", 0.85
 
-    elogio_kw = ["amei", "incrível", "maravilha", "bom", "ótimo", "excelente", "curti", "perfeito"]
+    elogio_kw = ["amei", "incrível", "maravilha", "bom", "ótimo", "excelente", "curti", "perfeito", "adoro", "adorável", "top", "sensacional", "fantástico", "show", "lindo", "linda", "legal", "gostei", "gosto", "divaram", "diva", "arrasou", "arrasa", "fera", "icônico", "icona", "mara", "maravilhoso", "maravilhosa", "bafônico", "bafônica", "lacrou", "lacra", "hino", "hinos", "hit", "hits"]
     if any(k in t for k in elogio_kw):
         return "ELOGIO", 0.85
 
-    critica_kw = ["ruim", "horrível", "péssimo", "não gostei", "odiei", "critica", "crítica", "fraco"]
+    critica_kw = ["ruim", "horrível", "péssimo", "não gostei", "odiei", "critica", "crítica", "fraco", "flop", "jurou", "coco", "lixo", "horripilante", "normie", "trash", "decepcionante", "decepção", "esperava mais"]
     if any(k in t for k in critica_kw):
         return "CRÍTICA", 0.8
 
@@ -44,17 +44,17 @@ def _extract_tags(text: str) -> List[Dict[str, str]]:
             "code": "feat_autotune",
             "explanation": "O comentário menciona uso de autotune."
         })
-    if any(k in t for k in ["clipe", "vídeo", "video", "narrativa"]):
+    if any(k in t for k in ["clipe", "vídeo", "video", "narrativa", "história", "historia"]):
         tags.append({
             "code": "clip_narrativa",
             "explanation": "Menciona o clipe/vídeo ou sua narrativa."
         })
-    if any(k in t for k in ["show", "turnê", "turne", "duração", "duracao", "luz", "som"]):
+    if any(k in t for k in ["show", "turnê", "turne", "duração", "duracao", "luz", "som", "palco", "performance", "ao vivo", "aovivo", "live"]):
         tags.append({
             "code": "show_producao",
             "explanation": "Cita aspectos do show (duração, luz, som)."
         })
-    if any(k in t for k in ["álbum", "album", "faixa", "música", "musica", "single"]):
+    if any(k in t for k in ["álbum", "album", "faixa", "música", "musica", "single", "disco", "cd", "lp", "ep", "b-side", "bside"]):
         tags.append({
             "code": "album_faixa",
             "explanation": "Refere-se ao álbum, faixa ou música."

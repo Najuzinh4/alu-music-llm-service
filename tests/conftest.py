@@ -1,4 +1,11 @@
+import os
+import sys
 import pytest
+
+#raiz do projeto
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 from app.main import create_app
 from app.models import db, User
@@ -27,4 +34,3 @@ def app_instance():
 @pytest.fixture
 def client(app_instance):
     return app_instance.test_client()
-
