@@ -31,3 +31,11 @@ class Comentario(db.Model):
     confianca = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
+class WeeklySummary(db.Model):
+    __tablename__ = "weekly_summaries"
+
+    id = db.Column(db.Integer, primary_key=True)
+    week = db.Column(db.String(10), index=True, nullable=False)  # e.g., 2025-W30
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
