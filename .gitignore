@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+
+# Virtualenv
+.venv/
+venv/
+env/
+.Python
+
+# Env files
+.env
+.env.*
+
+# Databases / data
+*.db
+*.sqlite3
+instance/
+app/instance/
+reports/
+
+# Tests / coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+coverage.xml
+
+# Build artifacts
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Editors/OS
+.DS_Store
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
